@@ -1,0 +1,120 @@
+/* Reset some basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body setup */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Buttons */
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Inputs and Textarea */
+input,
+textarea {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0 1em 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  font-family: inherit;
+  resize: vertical;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Post Card */
+.post-card {
+  background: white;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-card__title {
+  margin-bottom: 0.5em;
+  font-size: 1.25rem;
+}
+
+.post-card__body {
+  margin-bottom: 1em;
+}
+
+/* Post Preview */
+.post-preview {
+  background: #eef2f7;
+  padding: 1em;
+  border-radius: 6px;
+  margin-top: 2em;
+}
+
+.post-preview__heading {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.post-preview__title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5em;
+}
+
+.post-preview__body {
+  white-space: pre-wrap;
+}
+
+/* Post Form */
+.post-form__title,
+.post-form__body {
+  margin-bottom: 1em;
+}
+
+/* Blog Home */
+.blog-home__heading,
+.create-post__heading {
+  margin-bottom: 1em;
+}
+
+.blog-home__create-btn {
+  margin-bottom: 1.5em;
+}
+
+.blog-home__loading {
+  font-style: italic;
+  color: #666;
+}
+
+.blog-home__posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.create-post {
+  margin-top: 1em;
+}

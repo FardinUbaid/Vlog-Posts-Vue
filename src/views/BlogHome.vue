@@ -1,38 +1,45 @@
 <template>
-  <div class="blog-home">
-    <h1 class="blog-home__heading">Blog Posts</h1>
-
-    <button
-      class="blog-home__create-btn"
-      @click="$router.push({ name: 'CreatePost' })"
-    >
+  <main>
+    <h1>Blog Posts</h1>
+    <button @click="$router.push({ name: 'CreatePost' })">
       Create New Post
     </button>
 
-    <div v-if="!posts.length" class="blog-home__loading">Loading posts...</div>
+    <div v-if="loading">Loading posts...</div>
 
-    <div v-else class="blog-home__posts-list">
+    <div v-else>
       <PostCard
         v-for="post in posts"
-        :key="post.id"
+        :key="post.id || post.title"
         :post="post"
-        @delete="deletePost"
+        @delete="postStore.deletePost(post.id)"
       />
     </div>
-  </div>
+  </main>
 </template>
 
-<script setup>
+<script>
 import { onMounted } from "vue";
 import { usePostStore } from "../store/postStore";
+import { storeToRefs } from "pinia";
 import PostCard from "../components/PostCard.vue";
 
-const postStore = usePostStore();
-const { posts, fetchPosts, deletePost } = postStore;
+export default {
+  components: {
+    PostCard,
+  },
+  setup() {
+    const postStore = usePostStore();
+    const { posts, loading } = storeToRefs(postStore);
 
-onMounted(() => {
-  if (!posts.length) {
-    fetchPosts();
-  }
-});
+    onMounted(() => {
+      // Fetch posts only if posts array is empty
+      if (!postStore.posts.length) {
+        postStore.getPosts();
+      }
+    });
+
+    return { postStore, posts, loading };
+  },
+};
 </script>

@@ -1,37 +1,31 @@
 <template>
-  <form class="post-form" @submit.prevent="handleSubmit">
-    <input
-      class="post-form__title"
-      v-model="title"
-      placeholder="Title"
-      required
-    />
-    <textarea
-      class="post-form__body"
-      v-model="body"
-      placeholder="Body"
-      required
-    ></textarea>
-    <button class="post-form__submit-btn" type="submit">Submit</button>
+  <form @submit.prevent="submitForm">
+    <input v-model="title" placeholder="Title" />
+    <textarea v-model="body" placeholder="Body"></textarea>
+    <button type="submit">Submit</button>
   </form>
 </template>
 
-<script setup>
-import { ref, watch, defineEmits } from "vue";
+<script>
+import { ref, watch } from "vue";
 
-const title = ref("");
-const body = ref("");
+export default {
+  emits: ["submit", "updatePreview"],
+  setup(props, { emit }) {
+    const title = ref("");
+    const body = ref("");
 
-const emit = defineEmits(["submit", "updatePreview"]);
+    watch([title, body], () => {
+      emit("updatePreview", { title: title.value, body: body.value });
+    });
 
-watch([title, body], () => {
-  emit("updatePreview", { title: title.value, body: body.value });
-});
+    function submitForm() {
+      emit("submit", { title: title.value, body: body.value });
+      title.value = "";
+      body.value = "";
+    }
 
-const handleSubmit = () => {
-  emit("submit", { title: title.value, body: body.value });
-
-  title.value = "";
-  body.value = "";
+    return { title, body, submitForm };
+  },
 };
 </script>

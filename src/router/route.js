@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// Lazy load views using relative paths
+// Lazy load views with relative paths
 const BlogHome = () => import("../views/BlogHome.vue");
 const CreatePost = () => import("../views/CreatePost.vue");
 

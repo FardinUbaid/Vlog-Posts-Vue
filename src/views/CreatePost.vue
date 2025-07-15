@@ -1,36 +1,36 @@
 <template>
-  <div class="create-post">
-    <h1 class="create-post__heading">Create New Post</h1>
-
-    <PostForm @submit="submitPost" @updatePreview="updatePreview" />
-
-    <PostPreview :post="preview" />
-  </div>
+  <main>
+    <h1>Create New Post</h1>
+    <PostForm @submit="handleSubmit" @updatePreview="updatePreview" />
+    <h2>Preview:</h2>
+    <PostCard :post="preview" :showDelete="false" />
+  </main>
 </template>
 
-<script setup>
-import { reactive } from "vue";
+<script>
+import { ref } from "vue";
 import { usePostStore } from "../store/postStore";
 import { useRouter } from "vue-router";
-
 import PostForm from "../components/PostForm.vue";
-import PostPreview from "../components/PostPreview.vue";
+import PostCard from "../components/PostCard.vue";
 
-const postStore = usePostStore();
-const router = useRouter();
+export default {
+  components: { PostForm, PostCard },
+  setup() {
+    const preview = ref({ title: "", body: "" });
+    const postStore = usePostStore();
+    const router = useRouter();
 
-const preview = reactive({
-  title: "",
-  body: "",
-});
+    const updatePreview = (post) => {
+      preview.value = post;
+    };
 
-const submitPost = async (post) => {
-  await postStore.addPost(post);
-  router.push({ name: "BlogHome" });
-};
+    const handleSubmit = async (post) => {
+      await postStore.addPost(post);
+      router.push({ name: "BlogHome" });
+    };
 
-const updatePreview = (post) => {
-  preview.title = post.title;
-  preview.body = post.body;
+    return { preview, updatePreview, handleSubmit };
+  },
 };
 </script>
