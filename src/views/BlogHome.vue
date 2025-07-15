@@ -1,17 +1,21 @@
 <template>
   <main>
     <h1>Blog Posts</h1>
-    <button @click="$router.push({ name: 'CreatePost' })">
+    <button
+      @click="$router.push({ name: 'CreatePost' })"
+      class="create-post-button"
+    >
       Create New Post
     </button>
 
-    <div v-if="loading">Loading posts...</div>
+    <div v-if="loading" class="loading"></div>
 
     <div v-else>
       <PostCard
         v-for="post in posts"
         :key="post.id || post.title"
         :post="post"
+        :showDelete="true"
         @delete="postStore.deletePost(post.id)"
       />
     </div>
@@ -33,7 +37,6 @@ export default {
     const { posts, loading } = storeToRefs(postStore);
 
     onMounted(() => {
-      // Fetch posts only if posts array is empty
       if (!postStore.posts.length) {
         postStore.getPosts();
       }

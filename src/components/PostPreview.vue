@@ -1,18 +1,18 @@
 <template>
-  <div v-if="post.title || post.body">
-    <h2>Preview:</h2>
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.body }}</p>
+  <div v-if="post.title || post.body || post.image" class="post-preview">
+    <h2>Live Preview</h2>
+    <br />
+    <PostCard :post="post" :showDelete="false" />
   </div>
 </template>
 
 <script>
+import PostCard from "./PostCard.vue";
+
 export default {
+  components: { PostCard },
   props: {
-    post: {
-      type: Object,
-      default: () => ({ title: "", body: "" }),
-    },
+    post: Object,
   },
 };
 </script>
